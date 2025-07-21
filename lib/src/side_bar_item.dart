@@ -54,9 +54,10 @@ class SideBarItem extends StatelessWidget {
 
     if (item.children.isEmpty) {
       return ListTile(
+        dense:true,
         contentPadding: _getTilePadding(depth),
-        leading: _buildIcon(item.iconWidget, item.icon, selected),
-        title: _buildTitle(item.title, selected),
+        leading: _buildIcon(item.customTitle, item.icon, selected),
+        title: _buildTitle(item.customTitle, item.title, selected),
         selected: selected,
         tileColor: backgroundColor,
         selectedTileColor: activeBackgroundColor,
@@ -89,9 +90,10 @@ class SideBarItem extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
+        dense:true,
         tilePadding: _getTilePadding(depth),
-        leading: _buildIcon(item.iconWidget, item.icon),
-        title: _buildTitle(item.title),
+        leading: _buildIcon(item.customTitle, item.icon),
+        title: _buildTitle(item.customTitle, item.title),
         initiallyExpanded: selected,
         children: childrenTiles,
       ),
@@ -110,8 +112,8 @@ class SideBarItem extends StatelessWidget {
     return false;
   }
 
-  Widget _buildIcon(Widget? iconWidget, IconData? icon, [bool selected = false]) {
-    if (iconWidget != null) return iconWidget;
+  Widget? _buildIcon(Widget? customTitle, IconData? icon, [bool selected = false]) {
+    if (customTitle != null) return null;
     return icon != null
         ? Icon(
             icon,
@@ -127,7 +129,8 @@ class SideBarItem extends StatelessWidget {
         : SizedBox();
   }
 
-  Widget _buildTitle(String title, [bool selected = false]) {
+  Widget _buildTitle(Widget? customTitle, String title, [bool selected = false]) {
+    if (customTitle != null) return customTitle;
     return Text(
       title,
       style: selected ? activeTextStyle : textStyle,

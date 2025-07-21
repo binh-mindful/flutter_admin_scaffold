@@ -64,6 +64,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin {
           child: Material(
             color: widget.backgroundColor,
             child: ListView.builder(
+              shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 return SideBarItem(
                   items: widget.items,

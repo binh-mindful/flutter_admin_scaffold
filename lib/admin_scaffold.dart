@@ -22,12 +22,12 @@ class AdminScaffold extends StatefulWidget {
   final Widget body;
   final Color? backgroundColor;
   final double mobileThreshold;
+
   @override
   _AdminScaffoldState createState() => _AdminScaffoldState();
 }
 
-class _AdminScaffoldState extends State<AdminScaffold>
-    with SingleTickerProviderStateMixin {
+class _AdminScaffoldState extends State<AdminScaffold> with SingleTickerProviderStateMixin {
   late AppBar? _appBar;
   late AnimationController _animationController;
   late Animation _animation;
@@ -54,6 +54,7 @@ class _AdminScaffoldState extends State<AdminScaffold>
   void didChangeDependencies() {
     super.didChangeDependencies();
     final mediaQuery = MediaQuery.of(context);
+    print('_screenWidth = $_screenWidth');
     if (_screenWidth == mediaQuery.size.width) {
       return;
     }
@@ -73,6 +74,7 @@ class _AdminScaffoldState extends State<AdminScaffold>
   }
 
   void _toggleSidebar() {
+    print('_toggleSidebar');
     setState(() {
       _isOpenSidebar = !_isOpenSidebar;
       if (_isOpenSidebar)
@@ -90,8 +92,7 @@ class _AdminScaffoldState extends State<AdminScaffold>
 
   void _onDragUpdate(DragUpdateDetails details) {
     if (_canDragged) {
-      final delta =
-          (details.primaryDelta ?? 0.0) / (widget.sideBar?.width ?? 1.0);
+      final delta = (details.primaryDelta ?? 0.0) / (widget.sideBar?.width ?? 1.0);
       _animationController.value += delta;
     }
   }
@@ -108,8 +109,7 @@ class _AdminScaffoldState extends State<AdminScaffold>
     final minFlingVelocity = 365.0;
 
     if (details.velocity.pixelsPerSecond.dx.abs() >= minFlingVelocity) {
-      final visualVelocity =
-          details.velocity.pixelsPerSecond.dx / (widget.sideBar?.width ?? 1.0);
+      final visualVelocity = details.velocity.pixelsPerSecond.dx / (widget.sideBar?.width ?? 1.0);
 
       await _animationController.fling(velocity: visualVelocity);
       if (_animationController.isCompleted) {
@@ -140,7 +140,7 @@ class _AdminScaffoldState extends State<AdminScaffold>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: widget.backgroundColor,
-      appBar: _appBar,
+      appBar: _isMobile ? _appBar : null,
       body: AnimatedBuilder(
         animation: _animation,
         builder: (_, __) => widget.sideBar == null
@@ -165,8 +165,7 @@ class _AdminScaffoldState extends State<AdminScaffold>
                       widget.body,
                       if (_animation.value > 0)
                         Container(
-                          color: Colors.black
-                              .withAlpha((150 * _animation.value).toInt()),
+                          color: Colors.black.withAlpha((150 * _animation.value).toInt()),
                         ),
                       if (_animation.value == 1)
                         GestureDetector(
@@ -175,8 +174,7 @@ class _AdminScaffoldState extends State<AdminScaffold>
                         ),
                       ClipRect(
                         child: SizedOverflowBox(
-                          size: Size(
-                              (widget.sideBar?.width ?? 1.0) * _animation.value,
+                          size: Size((widget.sideBar?.width ?? 1.0) * _animation.value,
                               double.infinity),
                           child: widget.sideBar,
                         ),
@@ -188,9 +186,7 @@ class _AdminScaffoldState extends State<AdminScaffold>
                       widget.sideBar != null
                           ? ClipRect(
                               child: SizedOverflowBox(
-                                size: Size(
-                                    (widget.sideBar?.width ?? 1.0) *
-                                        _animation.value,
+                                size: Size((widget.sideBar?.width ?? 1.0) * _animation.value,
                                     double.infinity),
                                 child: widget.sideBar,
                               ),

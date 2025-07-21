@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class AdminMenuItem {
   const AdminMenuItem({
-    required this.title,
+    this.title,
     this.route,
     this.icon,
     this.children = const [],
     this.customTitle
   });
 
-  final String title;
+  final String? title;
   final String? route;
   final IconData? icon;
   final Widget? customTitle;

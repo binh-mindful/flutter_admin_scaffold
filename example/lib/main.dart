@@ -176,7 +176,7 @@ class MyScaffold extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          item.title,
+                          item.title??'',
                           style: const TextStyle(
                             fontSize: 14,
                           ),

@@ -129,10 +129,10 @@ class SideBarItem extends StatelessWidget {
         : SizedBox();
   }
 
-  Widget _buildTitle(Widget? customTitle, String title, [bool selected = false]) {
+  Widget _buildTitle(Widget? customTitle, String? title, [bool selected = false]) {
     if (customTitle != null) return customTitle;
     return Text(
-      title,
+      title??'',
       style: selected ? activeTextStyle : textStyle,
     );
   }

@@ -54,7 +54,6 @@ class _AdminScaffoldState extends State<AdminScaffold> with SingleTickerProvider
   void didChangeDependencies() {
     super.didChangeDependencies();
     final mediaQuery = MediaQuery.of(context);
-    print('_screenWidth = $_screenWidth');
     if (_screenWidth == mediaQuery.size.width) {
       return;
     }
@@ -74,7 +73,6 @@ class _AdminScaffoldState extends State<AdminScaffold> with SingleTickerProvider
   }
 
   void _toggleSidebar() {
-    print('_toggleSidebar');
     setState(() {
       _isOpenSidebar = !_isOpenSidebar;
       if (_isOpenSidebar)

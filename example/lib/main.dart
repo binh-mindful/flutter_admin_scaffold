@@ -106,6 +106,7 @@ class MyScaffold extends StatelessWidget {
       title: 'Dashboard',
       route: '/',
       icon: Icons.dashboard,
+      iconWidget: Icon(Icons.face)
     ),
     AdminMenuItem(
       title: 'Top Level',
